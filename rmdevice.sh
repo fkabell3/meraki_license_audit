@@ -56,7 +56,7 @@ done
 
 if { [ "$lflag" -eq 0 ] && [ "$rflag" -eq 0 ]; } || [ "$dflag" -eq 0 ]; then
 	cat <<- EOF
-	usage: $0 [-f] [-l|-r] [-d DAYS]
+	usage: $0 [-l|-r] [-d DAYS] [-f FILE]
 	List or remove Merakis that have been offline for >= DAYS days.
 	-l or -r AND -d are required arguments.
 

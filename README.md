@@ -1,6 +1,6 @@
 ```
 [fkabell@localhost ~]$ /usr/local/bin/rmdevice.sh
-usage: rmdevice.sh [-f] [-l|-r] [-d DAYS]
+usage: rmdevice.sh [-l|-r] [-d DAYS] [-f FILE]
 List or remove Merakis that have been offline for >= DAYS days.
 -l or -r AND -d are required arguments.
 
