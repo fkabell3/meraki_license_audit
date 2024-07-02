@@ -84,8 +84,6 @@ for var in merakiapikey merakiorganizationid; do
 	fi
 done
 
-[ "$fatal" -eq 1 ] && exit 1
-
 # Meraki defines a device as
 #	offline only if it has been offline for less than a week, or
 #	dormant if either
@@ -96,8 +94,10 @@ if [ "$days" -lt 7 ] 2>/dev/null; then
 elif [ "$days" -ge 7 ] 2>/dev/null; then
 	status='dormant'
 else
-	exit 1
+	die "\`-d $days' is invalid."
 fi
+
+[ "$fatal" -eq 1 ] && exit 1
 
 unixearlier="$(date -d "$days days ago" +%s)"
 
