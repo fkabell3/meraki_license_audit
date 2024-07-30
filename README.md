@@ -1,3 +1,11 @@
+Remove (not unclaim) Meraki devices from their corresponding Meraki networks.<br>
+Before the script may be used, you must:
+* verify that curl and jq are installed,
+* generate and store your Meraki API key,
+* edit organization_id.sh to include your API key,
+* run organization_id.sh to get your organization ID, and
+* edit rmdevice.sh to include your API key and organization ID.
+
 ```
 [fkabell@localhost ~]$ /usr/local/bin/rmdevice.sh
 usage: rmdevice.sh [-l|-r] [-d DAYS] [-f FILE]

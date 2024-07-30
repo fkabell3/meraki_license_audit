@@ -2,8 +2,10 @@
 
 # Depends on curl(1), jq(1), and GNU date(1) `-d' flag.
 
-merakiapikey=''
-merakiorganizationid=''
+# "Organization" -> "API & webhooks" -> "API keys and access" -> "Generate API Key"
+merakiapikey=
+# Fill out the $merakiapikey in organization_id.sh, then execute that script.
+merakiorganizationid=
 
 die() {
 	printf '%s: %s\n' Fatal "$1" 2>&1
@@ -100,6 +102,7 @@ fi
 [ "$fatal" -eq 1 ] && exit 1
 
 unixearlier="$(date -d "$days days ago" +%s)"
+unixnow="$(date +%s)"
 
 eval "$(_curl "organizations/$merakiorganizationid/devices/statuses?statuses[]={$status}" | \
 	sed 's/\.[0-9]\{6\}Z/Z/g' | \
@@ -123,7 +126,6 @@ for serial in $serials; do
 	serial="$(printf "$serial" | sed -E 's/.{4}/&-/g; s/-$//')"
 	grep "$serial" "$excludefile" >/dev/null 2>&1 && continue
 
-	unixnow="$(date +%s)"
 	unixonline="$(date -d "$lastonline" +%s)"
 	unixago=$((unixnow - unixonline))
 	# There are 86,400 seconds in one day.
@@ -133,7 +135,8 @@ for serial in $serials; do
 	    # A carriage return is required to upload the output into Microsoft Excel.
 	    printf '%s\r\n' "$name,$serial,$mac,$model,$networkid,$daysago"
 	elif [ "$rflag" -eq 1 ]; then
-	    printf '%s\n' "Removing $model '$name' ($serial) from '$networkid'."
+	    printf '%s\n' \
+	        "$(date): $model '$name' ($serial) has been offline for $daysago days, removing from '$networkid'."
 	    _curl "networks/$networkid/devices/remove" \
 	        -d '"{ \"serial\": \"$serial\" }"'
 	fi
