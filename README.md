@@ -1,5 +1,6 @@
-Remove (not unclaim) Meraki devices from their corresponding Meraki networks.<br>
-Before the script may be used, you must:
+List and remove (not unclaim) Meraki devices from their corresponding Meraki networks. Specify a number of days, and any Meraki that has been offline for at least that amount of time is listed or removed.<br>
+
+Before the script (`rmdevice.sh`) may be used, you must:
 
 * verify that `curl` and `jq` are installed,
 * generate and store your Meraki API key,
